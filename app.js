@@ -15,6 +15,8 @@ function loadEventListeners(){
     taskList.addEventListener('click', removeTask);
     // Clear all tasks event
     clearBtn.addEventListener('click', clearTasks);
+    // Filter tasks event
+    filter.addEventListener('keyup', filterTasks);
 }
 
 // Add Task (Event Handler)
@@ -62,4 +64,20 @@ function clearTasks(){
     while(taskList.firstChild){
         taskList.removeChild(taskList.firstChild);
     }
+}
+
+// Filter Tasks (Event Handler)
+function filterTasks(e){
+    const text = e.target.value.toLowerCase();
+    document.querySelectorAll('.collection-item').forEach(
+        function(task){                                   // task is  <li>...</li>
+            const item = task.firstChild.textContent;     // item is the content in the task e.g. "Walk the dog"                          
+            if(item.toLowerCase().indexOf(text) != -1){
+                task.style.display = 'block';
+            } else {
+                task.style.display = 'none';
+            }
+
+        }
+    );  // querySelector returns a node list, so we can use forEach
 }
